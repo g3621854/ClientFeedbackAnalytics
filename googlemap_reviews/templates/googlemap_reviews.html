@@ -256,7 +256,7 @@
       }
 
       // 查統計卡片比對增加資料概況
-      const getStatisticsFooter = function () {
+      const getStaticsFooter = function () {
         axios.get('/api/statistic_footer', {
           params: {
             published_date: selectedMonth.value,
@@ -391,7 +391,7 @@
         // 找統計卡片資料
         getStaticsCard();
         // 找統計卡片比對資料
-        getStatisticsFooter();
+        getStaticsFooter();
         // 店家選單資料
         fetchStores();
 
@@ -403,7 +403,7 @@
         // 找統計卡片資料
         getStaticsCard();
         // 找統計卡片比對資料
-        getStatisticsFooter();
+        getStaticsFooter();
         // 店家選單資料
         fetchStores();
       });
