@@ -79,9 +79,9 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "google_reviews",
         "USER": "root",
-        "PASSWORD": "90652713",
-        "HOST": "127.0.0.1",
-        "PORT": "3306",
+        "PASSWORD": "m7nw8AV9p4EKjUZlIa5xOFvR1L2q60S3",
+        "HOST": "sfo1.clusters.zeabur.com",
+        "PORT": "31573",
     }
 }
 
