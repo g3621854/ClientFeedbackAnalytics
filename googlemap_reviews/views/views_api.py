@@ -163,7 +163,7 @@ def statistic_footer(request):
         newNegativeReviewsThisMonth = ShopReviews.objects.filter(
             published_date__range=(first_day_of_month, last_day_of_month),
             place_name=place_name,
-            rating__gte=3,).count()
+            rating__lte=3,).count()
         response_data ={
             'newPositiveReviewsThisMonth':newPositiveReviewsThisMonth,
             'newNegativeReviewsThisMonth':newNegativeReviewsThisMonth
