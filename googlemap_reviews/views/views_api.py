@@ -35,7 +35,7 @@ def get_shop_keywords(request):
                              timedelta(days=32)).replace(day=1)
 
         # 找尋指定的place_name, 預設為P1
-        place_name = request.GET.get("place_name", "屏東民生")
+        place_name = request.GET.get("place_name", "新上海美味鍋24H(屏東民生)")
         category = request.GET.get("category")
         # 根據category過濾評論
         # 修改查詢已過濾當月的所有評論
@@ -73,7 +73,7 @@ def reviews_data(request):
                              timedelta(days=32)).replace(day=1)
 
         # 找尋指定的place_name, 預設為P1
-        place_name = request.GET.get("place_name", "屏東民生")
+        place_name = request.GET.get("place_name", "新上海美味鍋24H(屏東民生)")
 
         rating = request.GET.get("rating")
 
@@ -130,7 +130,7 @@ def get_storelist(request):
 
 def statistic_card(request):
     if request.method == "GET":
-        place_name = request.GET.get("place_name", "屏東民生")
+        place_name = request.GET.get("place_name", "新上海美味鍋24H(屏東民生)")
         # 計算rating平均值, 儲存於字典中
         avg_curRating = ShopReviews.objects.filter(place_name=place_name).aggregate(Avg('rating'))
         # 從字典中提取平均值
@@ -147,7 +147,7 @@ def statistic_card(request):
 
 def statistic_footer(request):
     if request.method == 'GET':
-        place_name = request.GET.get('place_name','屏東民生')
+        place_name = request.GET.get('place_name','新上海美味鍋24H(屏東民生)')
         date_str = request.GET.get(
             "published_date", datetime.now().strftime("%Y-%m-%d"))
         # 轉換為date類型
