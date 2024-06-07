@@ -28,4 +28,5 @@ urlpatterns = [
     path('api/get_storelist',views_api.get_storelist),
     path('api/statistic_card',views_api.statistic_card),
     path('api/statistic_footer',views_api.statistic_footer),
+    path('api/get_latest_update',views_api.get_latest_update),
 ]

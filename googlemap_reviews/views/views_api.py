@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.db.models import F, Avg
+from django.db.models import F, Avg, Max
 # 將資料解析為「共通格式」Json, 並回傳至Web(讓前端可以使用)
 from django.http import JsonResponse
 # 資料表
@@ -169,3 +169,9 @@ def statistic_footer(request):
             'newNegativeReviewsThisMonth':newNegativeReviewsThisMonth
         }
         return JsonResponse(response_data,safe=False)
+    
+def get_latest_update(request):
+    """抓取資料庫最後更新日期"""
+    if request.method == 'GET':
+        last_update = ShopReviews.objects.aggregate(last_updated=Max('published_date'))['last_updated']
+        return JsonResponse({'message': f'最後更新日期: {last_update}'}, status=404)
