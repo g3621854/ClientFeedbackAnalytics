@@ -3,7 +3,7 @@ from django.db.models import F, Avg, Max
 # 將資料解析為「共通格式」Json, 並回傳至Web(讓前端可以使用)
 from django.http import JsonResponse
 # 資料表
-from googlemap_reviews.models import ShopReviews, KeyWordReviews,StoreList
+from googlemap_reviews.models import ShopReviews, KeyWordReviews, StoreList
 from datetime import datetime, timedelta
 
 """
@@ -112,42 +112,49 @@ def reviews_data(request):
 
         return JsonResponse(response_data, safe=False)
 
+
 def get_storelist(request):
-    store_names = StoreList.objects.values_list('store_name',flat=True)
-    place_name = StoreList.objects.values_list('place_name',flat=True)
+    store_names = StoreList.objects.values_list('store_name', flat=True)
+    place_name = StoreList.objects.values_list('place_name', flat=True)
     stores = list(StoreList.objects.all())
     # 定義排序順序
     sort_order = ['屏東', '高雄', '台南', '嘉義', '雲林', '台中', '新竹', '桃園']
     # 自定義排序
-    stores.sort(key=lambda x: sort_order.index(x.store_name[:2]) if x.store_name[:2] in sort_order else len(sort_order))
+    stores.sort(key=lambda x: sort_order.index(
+        x.store_name[:2]) if x.store_name[:2] in sort_order else len(sort_order))
 
     response_data = {
         'options': [
             {'label': store.store_name, 'value': store.place_name} for store in stores
         ]
     }
-    return JsonResponse(response_data,safe=False)
+    return JsonResponse(response_data, safe=False)
+
 
 def statistic_card(request):
     if request.method == "GET":
         place_name = request.GET.get("place_name", "新上海美味鍋24H(屏東民生)")
         # 計算rating平均值, 儲存於字典中
-        avg_curRating = ShopReviews.objects.filter(place_name=place_name).aggregate(Avg('rating'))
+        avg_curRating = ShopReviews.objects.filter(
+            place_name=place_name).aggregate(Avg('rating'))
         # 從字典中提取平均值
         curRating = avg_curRating.get('rating__avg')
-        totalPositiveReviews = ShopReviews.objects.filter(place_name=place_name,rating__gte=4).count()
-        totalNegativeReviews = ShopReviews.objects.filter(place_name=place_name,rating__lte=3).count()
+        totalPositiveReviews = ShopReviews.objects.filter(
+            place_name=place_name, rating__gte=4).count()
+        totalNegativeReviews = ShopReviews.objects.filter(
+            place_name=place_name, rating__lte=3).count()
 
         response_data = {
-            'curRating':curRating,
-            'totalPositiveReviews':totalPositiveReviews,
-            'totalNegativeReviews':totalNegativeReviews,
+            'curRating': curRating,
+            'totalPositiveReviews': totalPositiveReviews,
+            'totalNegativeReviews': totalNegativeReviews,
         }
-        return JsonResponse(response_data,safe=False)
+        return JsonResponse(response_data, safe=False)
+
 
 def statistic_footer(request):
     if request.method == 'GET':
-        place_name = request.GET.get('place_name','新上海美味鍋24H(屏東民生)')
+        place_name = request.GET.get('place_name', '新上海美味鍋24H(屏東民生)')
         date_str = request.GET.get(
             "published_date", datetime.now().strftime("%Y-%m-%d"))
         # 轉換為date類型
@@ -155,7 +162,8 @@ def statistic_footer(request):
 
         # 計算當月第一天和最後一天
         first_day_of_month = date.replace(day=1)
-        last_day_of_month = (first_day_of_month + timedelta(days=32)).replace(day=1)
+        last_day_of_month = (first_day_of_month +
+                             timedelta(days=32)).replace(day=1)
         newPositiveReviewsThisMonth = ShopReviews.objects.filter(
             published_date__range=(first_day_of_month, last_day_of_month),
             place_name=place_name,
@@ -164,14 +172,16 @@ def statistic_footer(request):
             published_date__range=(first_day_of_month, last_day_of_month),
             place_name=place_name,
             rating__lte=3,).count()
-        response_data ={
-            'newPositiveReviewsThisMonth':newPositiveReviewsThisMonth,
-            'newNegativeReviewsThisMonth':newNegativeReviewsThisMonth
+        response_data = {
+            'newPositiveReviewsThisMonth': newPositiveReviewsThisMonth,
+            'newNegativeReviewsThisMonth': newNegativeReviewsThisMonth
         }
-        return JsonResponse(response_data,safe=False)
-    
+        return JsonResponse(response_data, safe=False)
+
+
 def get_latest_update(request):
     """抓取資料庫最後更新日期"""
     if request.method == 'GET':
-        last_update = ShopReviews.objects.aggregate(last_updated=Max('published_date'))['last_updated']
-        return JsonResponse({'message': f'最後更新日期: {last_update}'}, status=404)
+        last_update = ShopReviews.objects.aggregate(
+            last_updated=Max('published_date'))['last_updated']
+        return JsonResponse({'last_update': last_update}, status=404)
