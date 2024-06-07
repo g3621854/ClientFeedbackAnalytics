@@ -162,7 +162,7 @@
 
   // 從 Vue 宣告需要使用的 function 有哪些
   const { createApp, ref, onMounted, watch } = Vue;
-  const { ElMessage,ElLonding } = ElementPlus;
+  const { ElMessage, ElLonding } = ElementPlus;
   const { Picture } = '@element-plus/icons-vue';
   // import { Picture as IconPicture } from '@element-plus/icons-vue'
 
@@ -296,14 +296,35 @@
             keyWordDataN.value = response.data.negative;
             // 資料結束載入
             fullScreenLoading.value = false;
+            messageOpen();
           })
       }
-      const messageOpen = () => {
-        ElMessage({
-          message:"資料查詢成功",
-          type:'success',
-        })
-      }
+      const messageOpen = function () {
+        // 檢查keyWordDataP 是否有數據
+        if (keyWordDataP.value && Object.keys(keyWordDataP.value).length > 0 ||
+          keyWordDataN.value && Object.keys(keyWordDataN.value).length > 0) {
+          ElMessage({
+            message: "資料查詢成功",
+            type: 'success',
+            plain: true,
+          });
+        } else {
+          axios.get('/api/get_latest_update', {
+            // params: {
+            //   date: selectedMonth.value,
+            //   place_name: selectedStore.value
+            // }
+          }).then(function (response) {
+              console.log("測試用", response)
+              // 若無數據則顯示最後更新日期
+              ElMessage({
+                message: `尚無資料，資料最後更新日期:${response.data.last_update}`,
+                type: 'warning',
+                plain: true,
+              });
+          })
+        }
+            }
 
       //     setTimeout(() => {
 
@@ -412,8 +433,6 @@
         getStaticsFooter();
         // 店家選單資料
         fetchStores();
-        // 資料查詢成功消息
-        messageOpen();
 
       });
 

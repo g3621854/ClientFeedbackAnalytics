@@ -184,4 +184,4 @@ def get_latest_update(request):
     if request.method == 'GET':
         last_update = ShopReviews.objects.aggregate(
             last_updated=Max('published_date'))['last_updated']
-        return JsonResponse({'last_update': last_update}, status=404)
+        return JsonResponse({'last_update':last_update}, safe=False)
