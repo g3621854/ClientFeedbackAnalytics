@@ -162,7 +162,7 @@
 
   // 從 Vue 宣告需要使用的 function 有哪些
   const { createApp, ref, onMounted, watch } = Vue;
-  const { ElMessage } = ElementPlus;
+  const { ElMessage,ElLonding } = ElementPlus;
   const { Picture } = '@element-plus/icons-vue';
   // import { Picture as IconPicture } from '@element-plus/icons-vue'
 
@@ -198,7 +198,7 @@
       const selectedCommentType = ref("好評");
 
       // 好評評論表格資料
-      const ReviewData1Loading = ref(false)
+      const fullScreenLoading = ref(false)
 
       // 評論統計版
       const curRating = ref(0);
@@ -234,7 +234,7 @@
             reviewsDataP.value = response.data.positive
             reviewsDataN.value = response.data.negative
             // 資料結束載入
-            ReviewData1Loading.value = false;
+            fullScreenLoading.value = false;
           })
       }
 
@@ -274,7 +274,7 @@
       // 查店家資料
       const searchStore = function () {
         // 一開始載入資料 
-        // ReviewData1Loading.value = true;
+        // fullScreenLoading.value = true;
 
         console.log("查詢月份 for:", selectedMonth.value)
         console.log("查詢資料 for:", selectedStore.value);
@@ -295,7 +295,7 @@
             keyWordDataP.value = response.data.positive;
             keyWordDataN.value = response.data.negative;
             // 資料結束載入
-            ReviewData1Loading.value = false;
+            fullScreenLoading.value = false;
           })
       }
       const messageOpen = () => {
@@ -370,7 +370,7 @@
       //         totalNegativeReviews.value = Math.floor(Math.random() * 300)
       //         newNegativeReviewsThisMonth.value = Math.floor(Math.random() * 15)
       //         // 資料結束載入 
-      //         ReviewData1Loading.value = false;
+      //         fullScreenLoading.value = false;
       //     }, 100);
       // };
 
@@ -430,7 +430,7 @@
         // 好評評論資料表格
         reviewsDataP,
         reviewsDataN,
-        ReviewData1Loading,
+        fullScreenLoading,
         // 評論統計版
         curRating,
         ratingComparedToLastYear,
