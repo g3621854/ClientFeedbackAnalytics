@@ -1,13 +1,35 @@
-# Google客戶評論分析與整理
+## 專案簡介
+本專案是一個客訴網站，提供查看各店在Google地圖上的評論分數及評論內容，並整理為關鍵字，方便用戶查看每家店的關鍵字以及評論內容。
 
-使用技術:
+## 功能介紹
+- 查看各店的Google地圖評論分數
+- 查看各店的Google地圖評論內容
+- 將評論內容整理為關鍵字，便於查看和覆盤檢討
 
-－利用wordcloud模組從文本數據生成文字雲
+## 安裝指南
+### 前提條件
+- Python 3.12
+- Django 5.0
 
-－使用pandas進行條件過濾、數據分組和合併操作，對數據進行分析與處理
+### 步驟
+1. 克隆此專案: `git clone https://github.com/yourusername/yourrepository.git](https://github.com/g3621854/ClientFeedbackAnalytics.git`
+2. 進入專案目錄: `cd yourrepository`
+3. 安裝依賴: `pip install -r requirements.txt`
+4. 進行遷移: `python manage.py migrate`
+5. 啟動伺服器: `python manage.py runserver`
 
-－使用Django作為後端框架，並實現前後端分離
+## 使用說明
+- 啟動伺服器: `python manage.py runserver`
+- 訪問網站: 在瀏覽器中打開 `http://127.0.0.1:8000/googlemap_reviews/`
+- 查看評論及關鍵字: 在主頁面點選店名或日期進行查詢
 
-－使用MySQL作為數據庫管理系統，用於存儲和管理客戶評論及分析結果的數據
+## 文件結構
+- `models.py`: 定義數據模型
+- `views_api.py`: 處理API請求和返回JSON格式的視圖函數
+- `views_web.py`: 處理Web請求和返回HTML頁面的視圖函數
+- `templates/`: 存放HTML模板文件
 
-－使用Element UI，基於Vue.js的前端UI工具套件，進行網站的布局和設計
+## 附加資源
+- [畫面]![image](https://github.com/g3621854/ClientFeedbackAnalytics/assets/39024311/3f70287e-b017-4d13-af5f-4d30cc829986)
+
+- [範例](https://honestcoe.zeabur.app/googlemap_reviews/)
