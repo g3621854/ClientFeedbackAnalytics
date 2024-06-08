@@ -30,6 +30,6 @@
 - `templates/`: 存放HTML模板文件
 
 ## 附加資源
-- [畫面]![image](https://github.com/g3621854/ClientFeedbackAnalytics/assets/39024311/3f70287e-b017-4d13-af5f-4d30cc829986)
+- [操作畫面](https://github.com/g3621854/ClientFeedbackAnalytics/blob/main/googlemap_reviews/resources/Django_web_template.gif)
 
-- [範例](https://honestcoe.zeabur.app/googlemap_reviews/)
+- [網站連結](https://honestcoe.zeabur.app/googlemap_reviews/)
