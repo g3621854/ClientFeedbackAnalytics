@@ -12,7 +12,7 @@
 - Django 5.0
 
 ### 步驟
-1. 克隆此專案: `git clone https://github.com/yourusername/yourrepository.git](https://github.com/g3621854/ClientFeedbackAnalytics.git`
+1. 克隆此專案: `git clone https://github.com/g3621854/ClientFeedbackAnalytics.git`
 2. 進入專案目錄: `cd yourrepository`
 3. 安裝依賴: `pip install -r requirements.txt`
 4. 進行遷移: `python manage.py migrate`
