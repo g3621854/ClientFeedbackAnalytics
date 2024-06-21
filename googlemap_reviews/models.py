@@ -33,6 +33,7 @@ class ShopReviews(models.Model):
     response_from_owner_translated_text = models.TextField(null=True)
 
     class Meta:
+        # 指定數據表明，而非使用默認命名方法
         db_table = "shop_reviews"
 
 class StoreList(models.Model):
