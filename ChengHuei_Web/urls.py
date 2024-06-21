@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from googlemap_reviews.views import views_web,views_api
 
 urlpatterns = [
@@ -29,4 +29,5 @@ urlpatterns = [
     path('api/statistic_card',views_api.statistic_card),
     path('api/statistic_footer',views_api.statistic_footer),
     path('api/get_latest_update',views_api.get_latest_update),
+    path('api-auth/', include('rest_framework.urls')),
 ]

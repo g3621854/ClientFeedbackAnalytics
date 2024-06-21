@@ -5,6 +5,7 @@ from django.http import JsonResponse
 # 資料表
 from googlemap_reviews.models import ShopReviews, KeyWordReviews, StoreList
 from datetime import datetime, timedelta
+from googlemap_reviews.serializers import KeyWordReviewsSerializers
 
 """
     TODO:Api
@@ -55,7 +56,7 @@ def get_shop_keywords(request):
             'positive': list(result_positive),
             'negative': list(result_negative),
         }
-
+        # serializer = KeyWordReviewsSerializers(result_negative,many=True)
         return JsonResponse(response_date, safe=False)
 
 
