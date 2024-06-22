@@ -62,7 +62,7 @@ def get_shop_keywords(request):
             'positive': serializer_positive.data,
             'negative': serializer_negative.data,
         }
-        return Response(serializer_positive.data)
+        return Response(response_date)
 
 
 def reviews_data(request):
