@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect
+from rest_framework.response import Response
+from rest_framework.decorators import api_view,permission_classes
+from rest_framework import permissions
 from django.db.models import F, Avg, Max
 # 將資料解析為「共通格式」Json, 並回傳至Web(讓前端可以使用)
 from django.http import JsonResponse
@@ -16,7 +19,8 @@ from googlemap_reviews.serializers import KeyWordReviewsSerializers
 
 """
 
-
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
 def get_shop_keywords(request):
     """
     獲取關鍵字正負評,並整理成api
@@ -52,12 +56,13 @@ def get_shop_keywords(request):
             category=False
         ).values("place_name", "date", "keywords", "keywordCount")
 
+        serializer_positive = KeyWordReviewsSerializers(result_positive,many=True)
+        serializer_negative = KeyWordReviewsSerializers(result_negative,many=True)
         response_date = {
-            'positive': list(result_positive),
-            'negative': list(result_negative),
+            'positive': serializer_positive.data,
+            'negative': serializer_negative.data,
         }
-        # serializer = KeyWordReviewsSerializers(result_negative,many=True)
-        return JsonResponse(response_date, safe=False)
+        return Response(serializer_positive.data)
 
 
 def reviews_data(request):
