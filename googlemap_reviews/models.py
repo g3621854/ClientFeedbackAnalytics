@@ -39,5 +39,6 @@ class ShopReviews(models.Model):
 class StoreList(models.Model):
     place_name = models.CharField(max_length=50)
     store_name = models.CharField(max_length=50)
+    #__str__ 方法的主要用途是：提供人類可讀的字符串表示
     def __str__(self):
         return self.store_name
